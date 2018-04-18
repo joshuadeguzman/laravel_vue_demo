@@ -47439,6 +47439,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47463,6 +47473,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.tasks = data.data;
                 console.log(_this.tasks);
             });
+        },
+        deleteTask: function deleteTask(id) {
+            var _this2 = this;
+
+            if (confirm('Are you sure you want to delete this task?')) {
+                axios.delete('/api/tasks/' + id + '').then(function (response) {
+                    return _this2.removeTask(id);
+                });
+            }
+        },
+        removeTask: function removeTask(id) {
+            this.deleted = true;
+            this.tasks = _.remove(this.tasks, function (task) {
+                return task.id !== id;
+            });
         }
     }
 });
@@ -47477,31 +47502,66 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.tasks, function(task) {
-      return _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-sm-12" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(task.name) +
-                  "\n                "
-              )
+    [
+      _vm.deleted
+        ? _c("div", { staticClass: "alert alert-success" }, [
+            _c("strong", [_vm._v("Success!")]),
+            _vm._v(" Task has been successfully deleted.\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.tasks, function(task) {
+        return _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-sm-12" }, [
+            _c("div", { staticClass: "card card-default" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(task.name) +
+                    "\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(task.description) +
+                    "\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-info btn-sm",
+                    attrs: { href: "#", id: "edit-event" }
+                  },
+                  [_vm._v("Edit")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-outline-danger btn-sm",
+                    attrs: { href: "#", id: "delete-task" },
+                    on: {
+                      click: function($event) {
+                        _vm.deleteTask(task.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(task.description) +
-                  "\n                "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("br")
+            _c("br")
+          ])
         ])
-      ])
-    })
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []

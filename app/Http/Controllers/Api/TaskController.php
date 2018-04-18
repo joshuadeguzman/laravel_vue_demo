@@ -92,11 +92,13 @@ class TaskController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return $this->modelDeleted('Task');
     }
 }
