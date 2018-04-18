@@ -25,8 +25,13 @@ class TagController extends BaseApiController
      */
     public function index()
     {
+
         $tags = DB::table('tags')
-            ->orderBy('created_at', 'DESC')
+            ->leftJoin('task_tags', 'task_tags.tag_id', '=', 'tags.id')
+            ->select('tags.id', DB::raw('COUNT(tags.id) as count'))
+            ->groupBy('tags.id')
+            ->orderBy(DB::raw('COUNT(tags.id)'), 'DESC')
+            ->take(3)
             ->get();
 
         return TagResource::collection($tags);
@@ -45,7 +50,7 @@ class TagController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -56,7 +61,7 @@ class TagController extends BaseApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -67,7 +72,7 @@ class TagController extends BaseApiController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -78,8 +83,8 @@ class TagController extends BaseApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,7 +95,7 @@ class TagController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
