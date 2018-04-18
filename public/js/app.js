@@ -14001,7 +14001,7 @@ __webpack_require__(14);
 window.Vue = __webpack_require__(37);
 
 // Dependency Usage
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_multiselect___default.a);
+Vue.component('multiselect', __WEBPACK_IMPORTED_MODULE_0_vue_multiselect___default.a);
 
 // CSRF Token override
 Vue.prototype.$http = axios;
@@ -48308,6 +48308,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -48318,15 +48329,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     data: function data() {
-        //
+        return {
+            endpoint: '/api/tags',
+            options: [{
+                type: 'Top 3 Most Used Tags',
+                tags: [{ name: 'Vue.js', category: 'Front-end' }, { name: 'Adonis', category: 'Backend' }]
+            }],
+            value: []
+        };
     },
     created: function created() {
-        //
+        this.fetchRankedTags();
     },
 
 
     methods: {
-        //
+        fetchRankedTags: function fetchRankedTags() {
+            var _this = this;
+
+            axios.get(this.endpoint + this.taskId, this.task).then(function (_ref) {
+                var data = _ref.data;
+
+                _this.task = {
+                    name: data.name,
+                    description: data.description
+                };
+            });
+        }
     }
 });
 
@@ -48338,18 +48367,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("form", {
-      staticClass: "form-horizontal",
-      attrs: { method: "post" },
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.onSubmit($event)
-        }
-      }
-    })
-  ])
+  return _c(
+    "div",
+    [
+      _c(
+        "multiselect",
+        {
+          attrs: {
+            options: _vm.options,
+            multiple: true,
+            "group-values": "tags",
+            "group-label": "type",
+            "group-select": true,
+            placeholder: "Type to search",
+            "track-by": "name",
+            label: "name"
+          },
+          model: {
+            value: _vm.value,
+            callback: function($$v) {
+              _vm.value = $$v
+            },
+            expression: "value"
+          }
+        },
+        [
+          _c("span", { attrs: { slot: "noResult" }, slot: "noResult" }, [
+            _vm._v(
+              "Oops! No elements found. Consider changing the search query."
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("pre", { staticClass: "language-json" }, [
+        _c("code", [_vm._v(_vm._s(_vm.value))])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

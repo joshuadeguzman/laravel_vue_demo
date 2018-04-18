@@ -12,7 +12,7 @@ import VueMultiSelect from 'vue-multiselect';
 window.Vue = require('vue');
 
 // Dependency Usage
-Vue.use(VueMultiSelect);
+Vue.component('multiselect', VueMultiSelect);
 
 // CSRF Token override
 Vue.prototype.$http = axios;
