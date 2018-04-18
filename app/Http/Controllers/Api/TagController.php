@@ -57,6 +57,7 @@ class TagController extends BaseApiController
     public function getTaskTags($id){
         $taskTags = DB::table('task_tags')
             ->join('tags','tags.id','=','task_tags.tag_id')
+            ->where('task_tags.task_id', $id)
             ->get();
 
         return TagResource::collection($taskTags);

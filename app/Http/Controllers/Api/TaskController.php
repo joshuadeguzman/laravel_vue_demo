@@ -28,9 +28,17 @@ class TaskController extends BaseApiController
     public function index()
     {
         $tasks = DB::table('tasks')
-            ->where('user_id', Auth::user()->id)
-            ->orderBy('created_at', 'DESC')
+            ->where('tasks.user_id', Auth::user()->id)
+            ->orderBy('tasks.created_at', 'DESC')
             ->get();
+
+        // Retrieve tags each tasks
+        foreach($tasks as $task){
+            $task->tags = DB::table('task_tags')
+                ->join('tags','tags.id','=','task_tags.tag_id')
+                ->where('task_tags.task_id', $task->id)
+                ->get();
+        }
 
         return TaskResource::collection($tasks);
     }

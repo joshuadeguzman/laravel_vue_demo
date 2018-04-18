@@ -47480,6 +47480,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47548,8 +47551,40 @@ var render = function() {
                 _vm._v(
                   "\n                    " +
                     _vm._s(task.name) +
-                    "\n                "
-                )
+                    "\n                    "
+                ),
+                _c("div", { staticClass: "btn-group float-right" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { href: "tasks/edit/" + task.id, id: "edit-task" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Edit\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-danger btn-sm",
+                      attrs: { href: "#", id: "delete-task" },
+                      on: {
+                        click: function($event) {
+                          _vm.deleteTask(task.id)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Delete\n                        "
+                      )
+                    ]
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
@@ -47560,38 +47595,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "card-footer" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-info btn-sm",
-                    attrs: { href: "tasks/edit/" + task.id, id: "edit-task" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Edit\n                    "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-outline-danger btn-sm",
-                    attrs: { href: "#", id: "delete-task" },
-                    on: {
-                      click: function($event) {
-                        _vm.deleteTask(task.id)
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Delete\n                    "
-                    )
-                  ]
-                )
-              ])
+              _c("div", { staticClass: "card-footer" })
             ]),
             _vm._v(" "),
             _c("br")

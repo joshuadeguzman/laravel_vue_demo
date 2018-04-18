@@ -9,6 +9,19 @@
                 <div class="card card-default">
                     <div class="card-header">
                         {{ task.name }}
+                        <div class="btn-group float-right">
+                            <a :href="'tasks/edit/' + task.id"
+                               class="btn btn-secondary btn-sm"
+                               id="edit-task">
+                                Edit
+                            </a>
+                            <a href="#"
+                               class="btn btn-danger btn-sm"
+                               @click="deleteTask(task.id)"
+                               id="delete-task">
+                                Delete
+                            </a>
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -16,17 +29,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <a :href="'tasks/edit/' + task.id"
-                           class="btn btn-info btn-sm"
-                           id="edit-task">
-                            Edit
-                        </a>
-                        <a href="#"
-                           class="btn btn-outline-danger btn-sm"
-                           @click="deleteTask(task.id)"
-                           id="delete-task">
-                            Delete
-                        </a>
+
                     </div>
                 </div>
 
