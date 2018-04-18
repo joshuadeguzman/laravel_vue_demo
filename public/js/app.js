@@ -48333,7 +48333,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             endpoint: '/api/tags',
             options: [{
                 type: 'Top 3 Most Used Tags',
-                tags: [{ name: 'Vue.js', category: 'Front-end' }, { name: 'Adonis', category: 'Backend' }]
+                tags: []
             }],
             value: []
         };
@@ -48347,13 +48347,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchRankedTags: function fetchRankedTags() {
             var _this = this;
 
-            axios.get(this.endpoint + this.taskId, this.task).then(function (_ref) {
+            axios.get(this.endpoint).then(function (_ref) {
                 var data = _ref.data;
 
-                _this.task = {
-                    name: data.name,
-                    description: data.description
-                };
+                _this.options[0].tags = data.data;
             });
         }
     }

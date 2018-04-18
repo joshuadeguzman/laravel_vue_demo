@@ -32,8 +32,7 @@
                     {
                         type: 'Top 3 Most Used Tags',
                         tags: [
-                            {name: 'Vue.js', category: 'Front-end'},
-                            {name: 'Adonis', category: 'Backend'}
+
                         ]
                     }
                 ],
@@ -46,13 +45,10 @@
         },
 
         methods: {
-            fetchRankedTags(){
-                axios.get(this.endpoint + this.taskId, this.task)
+            fetchRankedTags() {
+                axios.get(this.endpoint)
                     .then(({data}) => {
-                        this.task = {
-                            name: data.name,
-                            description: data.description
-                        }
+                        this.options[0].tags = data.data;
                     });
             }
         }
