@@ -87,6 +87,7 @@
                 this.failed = true;
                 this.success = false;
                 this.errors = response.data.errors;
+                console.log(response.data);
             },
 
             onRequestSuccess() {

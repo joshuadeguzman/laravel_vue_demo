@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\TagResource;
 use App\Tag;
+use App\TaskTag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -62,15 +63,32 @@ class TagController extends BaseApiController
         //
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return string
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        // Remove all tags related to the task
+        $taskTags = TaskTag::where('task_id', $id)->delete();
+
+        // Re-add the old tags and add new tag instances to the task
+        foreach ($request->all() as $key => $value) {
+            // Create tag instance
+            $tag = new Tag();
+            $tag->name = $value['name'];
+            $tag->save();
+
+            // Bind tag to the task
+            $taskTags = new TaskTag();
+            $taskTags->task_id = $id;
+            $taskTags->tag_id = $tag->id;
+            $taskTags->save();
+        }
+
+        return json_encode($request->all());
     }
 
     /**
