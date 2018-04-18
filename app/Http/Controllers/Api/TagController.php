@@ -49,10 +49,7 @@ class TagController extends BaseApiController
             $value->name = DB::table('tags')->where('id', $value->id)->first()->name;
         }
 
-        // Assign ranked tags
-        $tags['ranked'] = $tagsRanked;
-
-        return json_encode($tags);
+        return TagResource::collection($tagsRanked);
     }
 
     /**
