@@ -50,6 +50,7 @@ QUEUE_HOST=beanstalkd
 Serve via docker
 ```
 docker-compose exec workspace bash
+~/bash: php artisan serve
 ```
 
 ## Author
