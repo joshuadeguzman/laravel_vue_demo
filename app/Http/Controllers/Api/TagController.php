@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\TagResource;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -26,13 +27,35 @@ class TagController extends BaseApiController
     public function index()
     {
 
-        $tags = DB::table('tags')
-            ->leftJoin('task_tags', 'task_tags.tag_id', '=', 'tags.id')
+        // Initialize tags
+        $tags = [];
+
+        // Get ranked tags
+        $tagsRanked = DB::table('tags')
+            ->join('task_tags', 'task_tags.tag_id', '=', 'tags.id')
             ->select('tags.id', DB::raw('COUNT(tags.id) as count'))
             ->groupBy('tags.id')
             ->orderBy(DB::raw('COUNT(tags.id)'), 'DESC')
-            ->take(3)
+            ->limit(3)
             ->get();
+
+        // Assign ranked tags
+        $tags['ranked'] = $tagsRanked;
+
+        // Assign ranked tags ids
+        $tagsRankedIds = [];
+        foreach ($tagsRanked as $key => $value) {
+            array_push($tagsRankedIds, $value->id);
+        }
+
+        // Get unranked tags
+        $tagsUnranked = DB::table('tags')
+            ->whereNotIn('id', $tagsRankedIds)
+            ->select('id', 'name')
+            ->get();
+
+        // Assign unranked tags
+        $tags['unranked'] = $tagsUnranked;
 
         return TagResource::collection($tags);
     }
