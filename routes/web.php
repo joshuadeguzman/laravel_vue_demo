@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // TODO: Add additional middlewares here if necessary
-Route::group(['namespace' => 'Api'], function () {
+Route::group(['namespace' => 'Api','prefix' => 'api'], function () {
     // Tasks
     Route::get('/tasks', 'TaskController@index')->name('tasks');
 });
