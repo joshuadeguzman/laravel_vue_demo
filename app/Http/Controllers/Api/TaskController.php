@@ -13,8 +13,8 @@ class TaskController extends BaseApiController
 
 
     /**
- * TaskController constructor.
- */
+     * TaskController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -29,7 +29,7 @@ class TaskController extends BaseApiController
     {
         $tasks = DB::table('tasks')
             ->where('user_id', Auth::user()->id)
-            ->orderBy('created_at','DESC')
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return TaskResource::collection($tasks);
@@ -77,8 +77,10 @@ class TaskController extends BaseApiController
      */
     public function edit($id)
     {
+        // TODO: Add middleware here to prevent other authenticated (logged in) users to view other user's todo list tasks
         $task = DB::table('tasks')
             ->where('id', $id)
+            ->select('id', 'name', 'description')
             ->first();
 
         return json_encode($task);
