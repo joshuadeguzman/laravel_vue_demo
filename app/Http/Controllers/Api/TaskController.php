@@ -29,6 +29,7 @@ class TaskController extends BaseApiController
     {
         $tasks = DB::table('tasks')
             ->where('user_id', Auth::user()->id)
+            ->orderBy('created_at','DESC')
             ->get();
 
         return TaskResource::collection($tasks);
