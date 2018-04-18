@@ -66,7 +66,6 @@
                     id: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000)),
                     name: newTag,
                 };
-                this.options.push(tag);
                 this.value.push(tag);
             },
 
