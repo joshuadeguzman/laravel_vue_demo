@@ -4,8 +4,14 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                <div class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    <li class="breadcrumb-item active">Create New Task</li>
+                </div>
                 <div class="card">
-                    <div class="card-header">Create Task</div>
+                    <div class="card-header">
+
+                    </div>
 
                     <div class="card-body">
                         @if (session('status'))

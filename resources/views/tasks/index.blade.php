@@ -4,9 +4,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                <div class="breadcrumb">
+                    <li class="breadcrumb-item active"><a href="/home">Home</a></li>
+                </div>
                 <div class="card">
                     <div class="card-header">
-                        Tasks
                         <a href="{{ route('task.create') }}"
                            class="btn btn-primary btn-sm float-right"
                            id="cancel">
