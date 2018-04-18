@@ -48319,6 +48319,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -48330,12 +48351,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            success: false,
+            failed: false,
             endpoint: '/api/tags',
-            options: [{
-                type: 'Top 3 Most Used Tags',
-                tags: []
-            }],
-            value: []
+            value: [],
+            options: []
         };
     },
     created: function created() {
@@ -48344,14 +48364,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
+        addTag: function addTag(newTag) {
+            var tag = {
+                id: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
+                name: newTag
+            };
+            this.options.push(tag);
+            this.value.push(tag);
+        },
         fetchRankedTags: function fetchRankedTags() {
             var _this = this;
 
             axios.get(this.endpoint).then(function (_ref) {
                 var data = _ref.data;
 
-                _this.options[0].tags = data.data;
+                _this.options = data.data;
             });
+        },
+        onSubmit: function onSubmit(e) {
+            var _this2 = this;
+
+            axios.post('/api/tasks/' + this.taskId + '/tags', this.value).then(function (_ref2) {
+                var data = _ref2.data;
+                return _this2.onRequestSuccess();
+            }).catch(function (_ref3) {
+                var response = _ref3.response;
+                return _this2.onRequestFailed(response);
+            });
+        },
+        onRequestFailed: function onRequestFailed(response) {
+            this.failed = true;
+            this.success = false;
+            this.errors = response.data.errors;
+        },
+        onRequestSuccess: function onRequestSuccess() {
+            this.success = true;
+            this.failed = false;
         }
     }
 });
@@ -48364,47 +48412,96 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "multiselect",
-        {
-          attrs: {
-            options: _vm.options,
-            multiple: true,
-            "group-values": "tags",
-            "group-label": "type",
-            "group-select": true,
-            placeholder: "Type to search",
-            "track-by": "name",
-            label: "name"
-          },
-          model: {
-            value: _vm.value,
-            callback: function($$v) {
-              _vm.value = $$v
-            },
-            expression: "value"
+  return _c("div", [
+    _c(
+      "form",
+      {
+        staticClass: "form-horizontal",
+        attrs: { method: "post" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.onSubmit($event)
           }
+        }
+      },
+      [
+        _vm.success
+          ? _c("div", { staticClass: "alert alert-success" }, [
+              _c("strong", [_vm._v("Success!")]),
+              _vm._v(" Tags has been successfully set.\n        ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.failed
+          ? _c("div", { staticClass: "alert alert-danger" }, [
+              _c("strong", [_vm._v("Error!")]),
+              _vm._v(" Tags was not set.\n        ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("multiselect", {
+              attrs: {
+                "tag-placeholder": "Add this as new tag",
+                placeholder: "Search or add a tag",
+                label: "name",
+                "track-by": "id",
+                options: _vm.options,
+                multiple: true,
+                taggable: true
+              },
+              on: { tag: _vm.addTag },
+              model: {
+                value: _vm.value,
+                callback: function($$v) {
+                  _vm.value = $$v
+                },
+                expression: "value"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    ),
+    _vm._v(" "),
+    _c("pre", { staticClass: "language-json" }, [
+      _c("code", [_vm._v(_vm._s(_vm.value))])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group text-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-info btn-sm",
+          attrs: { type: "submit", id: "save-task" }
         },
-        [
-          _c("span", { attrs: { slot: "noResult" }, slot: "noResult" }, [
-            _vm._v(
-              "Oops! No elements found. Consider changing the search query."
-            )
-          ])
-        ]
+        [_vm._v("\n                Save\n            ")]
       ),
       _vm._v(" "),
-      _c("pre", { staticClass: "language-json" }, [
-        _c("code", [_vm._v(_vm._s(_vm.value))])
-      ])
-    ],
-    1
-  )
-}
-var staticRenderFns = []
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-outline-danger btn-sm",
+          attrs: { href: "/home", id: "cancel" }
+        },
+        [_vm._v("\n                Cancel\n            ")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
