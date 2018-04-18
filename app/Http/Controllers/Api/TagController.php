@@ -52,15 +52,6 @@ class TagController extends BaseApiController
         // Assign ranked tags
         $tags['ranked'] = $tagsRanked;
 
-        // Get unranked tags
-        $tagsUnranked = DB::table('tags')
-            ->whereNotIn('id', $tagsRankedIds)
-            ->select('id', 'name')
-            ->get();
-
-        // Assign unranked tags
-        $tags['unranked'] = $tagsUnranked;
-
         return json_encode($tags);
     }
 
