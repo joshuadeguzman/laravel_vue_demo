@@ -90,7 +90,7 @@
             <p>
                 A demonstrable task list (to-do's) web-app using laravel and vuejs
             </p>
-            <a href="https://jodeio.github.io/laravel-vue-demo"><i class="fa fa-code-fork"></i>FORK ON GITHUB</a>
+            <a href="http://laravel-vue-demo.herokuapp.com/"><i class="fa fa-code-fork"></i>FORK ON GITHUB</a>
         </div>
     </div>
 </div>
