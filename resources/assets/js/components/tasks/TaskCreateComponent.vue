@@ -2,9 +2,6 @@
     <div>
         <form class="form-horizontal" method="post" @submit.prevent="onSubmit">
             <div class="card-body">
-                <div class="alert alert-success" v-if="success">
-                    <strong>Success!</strong> Task was successfully added.
-                </div>
                 <div class="alert alert-danger" v-if="failed">
                     <strong>Error!</strong> Task was not created.
                 </div>
@@ -59,7 +56,6 @@
 
         data() {
             return {
-                success: false,
                 failed: false,
                 endpoint: '/api/tasks/',
                 errors: [],
@@ -89,9 +85,7 @@
             },
 
             onRequestSuccess() {
-                this.success = true;
-                this.task.name = '';
-                this.task.description = '';
+                window.location.href = '/home'
             },
         }
     }

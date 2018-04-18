@@ -48034,9 +48034,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -48048,7 +48045,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            success: false,
             failed: false,
             endpoint: '/api/tasks/',
             errors: [],
@@ -48081,9 +48077,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.errors = response.data.errors;
         },
         onRequestSuccess: function onRequestSuccess() {
-            this.success = true;
-            this.task.name = '';
-            this.task.description = '';
+            window.location.href = '/home';
         }
     }
 });
@@ -48111,13 +48105,6 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "card-body" }, [
-          _vm.success
-            ? _c("div", { staticClass: "alert alert-success" }, [
-                _c("strong", [_vm._v("Success!")]),
-                _vm._v(" Task was successfully added.\n            ")
-              ])
-            : _vm._e(),
-          _vm._v(" "),
           _vm.failed
             ? _c("div", { staticClass: "alert alert-danger" }, [
                 _c("strong", [_vm._v("Error!")]),
