@@ -47758,18 +47758,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.patch('/api/tasks/' + this.taskId, this.task).then(function (_ref2) {
                 var data = _ref2.data;
-                return _this2.setSuccessMessage(data);
+                return _this2.onRequestSuccess();
             }).catch(function (_ref3) {
                 var response = _ref3.response;
-                return _this2.setErrors(response);
+                return _this2.onRequestFailed(response);
             });
         },
-        setErrors: function setErrors(response) {
+        onRequestFailed: function onRequestFailed(response) {
             this.failed = true;
             this.success = false;
             this.errors = response.data.errors;
         },
-        setSuccessMessage: function setSuccessMessage(data) {
+        onRequestSuccess: function onRequestSuccess() {
             this.success = true;
             this.failed = false;
         }

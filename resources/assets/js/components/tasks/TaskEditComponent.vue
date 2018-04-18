@@ -88,17 +88,17 @@
 
             onSubmit(e) {
                 axios.patch('/api/tasks/' + this.taskId, this.task)
-                    .then(({data}) => this.setSuccessMessage(data))
-                    .catch(({response}) => this.setErrors(response));
+                    .then(({data}) => this.onRequestSuccess())
+                    .catch(({response}) => this.onRequestFailed(response));
             },
 
-            setErrors(response) {
+            onRequestFailed(response) {
                 this.failed = true;
                 this.success = false;
                 this.errors = response.data.errors;
             },
 
-            setSuccessMessage(data) {
+            onRequestSuccess() {
                 this.success = true;
                 this.failed = false;
             },
