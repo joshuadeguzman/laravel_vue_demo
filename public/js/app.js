@@ -48338,8 +48338,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -48353,12 +48351,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             success: false,
             failed: false,
-            endpoint: '/api/tags',
             value: [],
             options: []
         };
     },
     created: function created() {
+        this.fetchTaskTags();
         this.fetchRankedTags();
     },
 
@@ -48371,24 +48369,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
             this.value.push(tag);
         },
-        fetchRankedTags: function fetchRankedTags() {
+        fetchTaskTags: function fetchTaskTags() {
             var _this = this;
 
-            axios.get(this.endpoint).then(function (_ref) {
+            axios.get('/api/tasks/' + this.taskId + '/tags').then(function (_ref) {
                 var data = _ref.data;
 
-                _this.options = data.data;
+                _this.value = data.data;
+            });
+        },
+        fetchRankedTags: function fetchRankedTags() {
+            var _this2 = this;
+
+            axios.get('/api/tags').then(function (_ref2) {
+                var data = _ref2.data;
+
+                _this2.options = data.data;
             });
         },
         onSubmit: function onSubmit(e) {
-            var _this2 = this;
+            var _this3 = this;
 
-            axios.post('/api/tasks/' + this.taskId + '/tags', this.value).then(function (_ref2) {
-                var data = _ref2.data;
-                return _this2.onRequestSuccess();
-            }).catch(function (_ref3) {
-                var response = _ref3.response;
-                return _this2.onRequestFailed(response);
+            axios.post('/api/tasks/' + this.taskId + '/tags', this.value).then(function (_ref3) {
+                var data = _ref3.data;
+                return _this3.onRequestSuccess();
+            }).catch(function (_ref4) {
+                var response = _ref4.response;
+                return _this3.onRequestFailed(response);
             });
         },
         onRequestFailed: function onRequestFailed(response) {
@@ -48469,11 +48476,7 @@ var render = function() {
         _vm._v(" "),
         _vm._m(0)
       ]
-    ),
-    _vm._v(" "),
-    _c("pre", { staticClass: "language-json" }, [
-      _c("code", [_vm._v(_vm._s(_vm.value))])
-    ])
+    )
   ])
 }
 var staticRenderFns = [

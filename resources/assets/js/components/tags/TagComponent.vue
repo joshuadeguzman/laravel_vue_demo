@@ -32,8 +32,6 @@
                 </a>
             </div>
         </form>
-        <pre class="language-json"><code>{{ value }}</code></pre>
-
     </div>
 </template>
 
@@ -50,13 +48,13 @@
             return {
                 success: false,
                 failed: false,
-                endpoint: '/api/tags',
                 value: [],
                 options: []
             }
         },
 
         created() {
+            this.fetchTaskTags();
             this.fetchRankedTags();
         },
 
@@ -69,11 +67,17 @@
                 this.value.push(tag);
             },
 
+            fetchTaskTags(){
+                axios.get('/api/tasks/'+ this.taskId + '/tags')
+                    .then(({data}) => {
+                        this.value = data.data;
+                    });
+            },
+
             fetchRankedTags() {
-                axios.get(this.endpoint)
+                axios.get('/api/tags')
                     .then(({data}) => {
                         this.options = data.data;
-
                     });
             },
 

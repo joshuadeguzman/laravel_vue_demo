@@ -34,5 +34,6 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
 
     // Tags
     Route::get('/tags', 'TagController@index')->name('tags.index');
+    Route::get('/tasks/{task}/tags', 'TagController@getTaskTags')->name('tags.task-tags');
     Route::post('/tasks/{task}/tags', 'TagController@store')->name('tags.store');
 });

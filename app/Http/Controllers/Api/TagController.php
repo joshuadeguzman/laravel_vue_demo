@@ -53,6 +53,15 @@ class TagController extends BaseApiController
         return TagResource::collection($tagsRanked);
     }
 
+
+    public function getTaskTags($id){
+        $taskTags = DB::table('task_tags')
+            ->join('tags','tags.id','=','task_tags.tag_id')
+            ->get();
+
+        return TagResource::collection($taskTags);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -76,10 +85,17 @@ class TagController extends BaseApiController
 
         // Re-add the old tags and add new tag instances to the task
         foreach ($request->all() as $key => $value) {
-            // Create tag instance
-            $tag = new Tag();
-            $tag->name = $value['name'];
-            $tag->save();
+            // Check whether the tag with the name already exists
+            $tag = DB::table('tags')
+                ->where('name', $value['name'])
+                ->first();
+
+            if (!$tag) {
+                // Create tag instance
+                $tag = new Tag();
+                $tag->name = $value['name'];
+                $tag->save();
+            }
 
             // Bind tag to the task
             $taskTags = new TaskTag();
@@ -88,7 +104,8 @@ class TagController extends BaseApiController
             $taskTags->save();
         }
 
-        return json_encode($request->all());
+        // TODO: Internally validate tags being added, binded with the task
+        return $this->ok($taskTags);
     }
 
     /**
