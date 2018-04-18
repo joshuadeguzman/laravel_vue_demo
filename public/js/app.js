@@ -47483,6 +47483,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -47595,7 +47601,27 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "card-footer" })
+              _c(
+                "div",
+                { staticClass: "card-footer" },
+                _vm._l(task.tags, function(tag) {
+                  return _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-sm btn-outline-info",
+                      staticStyle: { "margin-right": "5px" },
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(tag.name) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                })
+              )
             ]),
             _vm._v(" "),
             _c("br")

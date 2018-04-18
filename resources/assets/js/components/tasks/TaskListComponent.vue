@@ -29,7 +29,13 @@
                     </div>
 
                     <div class="card-footer">
-
+                        <!-- TODO: When click show all tags insights if necessary or filter tasks with the selected tag -->
+                        <a href="#"
+                           class="btn btn-sm btn-outline-info"
+                           style="margin-right: 5px;"
+                           v-for="tag in task.tags">
+                            {{ tag.name }}
+                        </a>
                     </div>
                 </div>
 
