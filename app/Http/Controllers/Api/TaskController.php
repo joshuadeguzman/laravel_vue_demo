@@ -70,11 +70,15 @@ class TaskController extends BaseApiController
      * Show the form for editing the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return TaskResource
      */
     public function edit($id)
     {
-        //
+        $task = DB::table('tasks')
+            ->where('id', $id)
+            ->first();
+
+        return json_encode($task);
     }
 
     /**
@@ -82,11 +86,15 @@ class TaskController extends BaseApiController
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return TaskResource
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $task = Task::findOrFail($id);
+        $task->update($request->all());
+
+        return new TaskResource($task);
     }
 
     /**

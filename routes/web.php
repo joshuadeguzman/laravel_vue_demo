@@ -18,10 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/tasks/edit/{task}', 'HomeController@edit')->name('task.edit');
 
 // TODO: Add additional middlewares here if necessary
 Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
     // Tasks
     Route::get('/tasks', 'TaskController@index')->name('tasks.index');
+    Route::get('/tasks/{task}', 'TaskController@edit')->name('tasks.edit');
+    Route::patch('/tasks/{task}', 'TaskController@update')->name('tasks.update');
     Route::delete('/tasks/{task}', 'TaskController@destroy')->name('tasks.delete');
 });
+

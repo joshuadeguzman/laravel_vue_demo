@@ -16,9 +16,17 @@
                     </div>
 
                     <div class="card-footer">
-                        <a href="#" class="btn btn-info btn-sm" id="edit-task">Edit</a>
-                        <a href="#" class="btn btn-outline-danger btn-sm" @click="deleteTask(task.id)"
-                           id="delete-task">Delete</a>
+                        <a :href="'tasks/edit/' + task.id"
+                           class="btn btn-info btn-sm"
+                           id="edit-task">
+                            Edit
+                        </a>
+                        <a href="#"
+                           class="btn btn-outline-danger btn-sm"
+                           @click="deleteTask(task.id)"
+                           id="delete-task">
+                            Delete
+                        </a>
                     </div>
                 </div>
 
@@ -48,7 +56,6 @@
                 axios.get(this.endpoint)
                     .then(({data}) => {
                         this.tasks = data.data;
-                        console.log(this.tasks);
                     });
             },
 
