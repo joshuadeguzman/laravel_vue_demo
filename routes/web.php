@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,4 +31,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
     Route::get('/tasks/{task}', 'TaskController@edit')->name('tasks.edit');
     Route::patch('/tasks/{task}', 'TaskController@update')->name('tasks.update');
     Route::delete('/tasks/{task}', 'TaskController@destroy')->name('tasks.delete');
+
+    // Tags
+    Route::get('/tags', 'TagController@index')->name('tags.index');
 });
