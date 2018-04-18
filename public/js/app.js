@@ -13994,6 +13994,12 @@ __webpack_require__(14);
 
 window.Vue = __webpack_require__(37);
 
+Vue.prototype.$http = axios;
+window.axios.defaults.headers.common = {
+  'X-Requested-With': 'XMLHttpRequest',
+  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -14002,6 +14008,7 @@ window.Vue = __webpack_require__(37);
 
 Vue.component('example-component', __webpack_require__(40));
 Vue.component('task-list', __webpack_require__(43));
+Vue.component('task-create', __webpack_require__(57));
 Vue.component('task-edit', __webpack_require__(54));
 
 var app = new Vue({
@@ -47782,7 +47789,7 @@ var render = function() {
       "form",
       {
         staticClass: "form-horizontal",
-        attrs: { method: "post" },
+        attrs: { method: "patch" },
         on: {
           submit: function($event) {
             $event.preventDefault()
@@ -47924,6 +47931,318 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-a2228034", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(58)
+/* template */
+var __vue_template__ = __webpack_require__(59)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/tasks/TaskCreateComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-32ffb918", Component.options)
+  } else {
+    hotAPI.reload("data-v-32ffb918", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        userId: {
+            type: Number,
+            required: true
+        }
+    },
+
+    data: function data() {
+        return {
+            success: false,
+            failed: false,
+            endpoint: '/api/tasks/',
+            errors: [],
+            task: {
+                name: null,
+                description: null,
+                user_id: this.userId
+            }
+        };
+    },
+    created: function created() {
+        //
+    },
+
+
+    methods: {
+        onSubmit: function onSubmit(e) {
+            var _this = this;
+
+            axios.post('/api/tasks', this.task).then(function (_ref) {
+                var data = _ref.data;
+                return _this.onRequestSuccess();
+            }).catch(function (_ref2) {
+                var response = _ref2.response;
+                return _this.onRequestFailed(response);
+            });
+        },
+        onRequestFailed: function onRequestFailed(response) {
+            this.failed = true;
+            this.errors = response.data.errors;
+        },
+        onRequestSuccess: function onRequestSuccess() {
+            this.success = true;
+            this.task.name = '';
+            this.task.description = '';
+        }
+    }
+});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "form",
+      {
+        staticClass: "form-horizontal",
+        attrs: { method: "post" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.onSubmit($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "card-body" }, [
+          _vm.success
+            ? _c("div", { staticClass: "alert alert-success" }, [
+                _c("strong", [_vm._v("Success!")]),
+                _vm._v(" Task was successfully added.\n            ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.failed
+            ? _c("div", { staticClass: "alert alert-danger" }, [
+                _c("strong", [_vm._v("Error!")]),
+                _vm._v(" Task was not created.\n            ")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.task.name,
+                  expression: "task.name"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                id: "task-name",
+                type: "text",
+                placeholder: "task name",
+                required: "required"
+              },
+              domProps: { value: _vm.task.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.task, "name", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.name
+              ? _c("span", { staticClass: "help-block text-danger" }, [
+                  _vm._v(" " + _vm._s(_vm.errors.name[0]) + " ")
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c(
+              "textarea",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.task.description,
+                    expression: "task.description"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  id: "task-description",
+                  type: "text",
+                  placeholder: "task description",
+                  rows: "10"
+                },
+                domProps: { value: _vm.task.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.task, "description", $event.target.value)
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "                    " +
+                    _vm._s(_vm.task.description) +
+                    "\n                "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm.errors.description
+              ? _c("span", { staticClass: "help-block text-danger" }, [
+                  _vm._v(" " + _vm._s(_vm.errors.description[0]))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group text-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-info btn-sm",
+          attrs: { type: "submit", id: "save-task" }
+        },
+        [_vm._v("\n                    Save\n                ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-outline-danger btn-sm",
+          attrs: { href: "/home", id: "cancel" }
+        },
+        [_vm._v("\n                    Cancel\n                ")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-32ffb918", module.exports)
   }
 }
 

@@ -13,8 +13,8 @@ class TaskController extends BaseApiController
 
 
     /**
-     * TaskController constructor.
-     */
+ * TaskController constructor.
+ */
     public function __construct()
     {
         $this->middleware('auth');
@@ -48,11 +48,13 @@ class TaskController extends BaseApiController
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return TaskResource
      */
     public function store(Request $request)
     {
-        //
+        $task = Task::create($request->all());
+
+        return new TaskResource($task);
     }
 
     /**

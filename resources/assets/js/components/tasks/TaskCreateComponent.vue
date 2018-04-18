@@ -1,13 +1,12 @@
 <template>
     <div>
-        <form class="form-horizontal" method="patch" @submit.prevent="onSubmit">
+        <form class="form-horizontal" method="post" @submit.prevent="onSubmit">
             <div class="card-body">
                 <div class="alert alert-success" v-if="success">
-                    <strong>Success!</strong> Task has been successfully updated.
+                    <strong>Success!</strong> Task was successfully added.
                 </div>
-
                 <div class="alert alert-danger" v-if="failed">
-                    <strong>Error!</strong> Task was not updated.
+                    <strong>Error!</strong> Task was not created.
                 </div>
                 <div class="form-group">
                     <input id="task-name"
@@ -52,7 +51,7 @@
 <script>
     export default {
         props: {
-            taskId: {
+            userId: {
                 type: Number,
                 required: true
             }
@@ -66,41 +65,33 @@
                 errors: [],
                 task: {
                     name: null,
-                    description: null
-                },
+                    description: null,
+                    user_id: this.userId
+                }
             };
         },
 
         created() {
-            this.fetch();
+            //
         },
 
         methods: {
-            fetch() {
-                axios.get(this.endpoint + this.taskId, this.task)
-                    .then(({data}) => {
-                        this.task = {
-                            name: data.name,
-                            description: data.description
-                        }
-                    });
-            },
 
             onSubmit(e) {
-                axios.patch('/api/tasks/' + this.taskId, this.task)
-                    .then(({data}) => this.setSuccessMessage(data))
-                    .catch(({response}) => this.setErrors(response));
+                axios.post('/api/tasks', this.task)
+                    .then(({data}) => this.onRequestSuccess())
+                    .catch(({response}) => this.onRequestFailed(response));
             },
 
-            setErrors(response) {
+            onRequestFailed(response) {
                 this.failed = true;
-                this.success = false;
                 this.errors = response.data.errors;
             },
 
-            setSuccessMessage(data) {
+            onRequestSuccess() {
                 this.success = true;
-                this.failed = false;
+                this.task.name = '';
+                this.task.description = '';
             },
         }
     }
