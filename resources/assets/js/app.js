@@ -7,8 +7,14 @@
 
 require('./bootstrap');
 
+import VueMultiSelect from 'vue-multiselect';
+
 window.Vue = require('vue');
 
+// Dependency Usage
+Vue.use(VueMultiSelect);
+
+// CSRF Token override
 Vue.prototype.$http = axios;
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
@@ -22,9 +28,14 @@ window.axios.defaults.headers.common = {
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+// Tasks
 Vue.component('task-list', require('./components/tasks/TaskListComponent.vue'));
 Vue.component('task-create', require('./components/tasks/TaskCreateComponent.vue'));
 Vue.component('task-edit', require('./components/tasks/TaskEditComponent.vue'));
+
+// Tags
+Vue.component('tags', require('./components/tags/TagComponent.vue'));
 
 const app = new Vue({
     el: '#app'

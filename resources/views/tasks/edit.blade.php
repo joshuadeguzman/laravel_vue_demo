@@ -14,6 +14,7 @@
                             </div>
                         @endif
                         <task-edit :task-id="{{ $task->id }}"></task-edit>
+                        <tags :task-id="{{ $task->id }}"></tags>
                     </div>
                 </div>
             </div>
