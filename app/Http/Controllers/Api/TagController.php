@@ -39,14 +39,18 @@ class TagController extends BaseApiController
             ->limit(3)
             ->get();
 
-        // Assign ranked tags
-        $tags['ranked'] = $tagsRanked;
 
         // Assign ranked tags ids
         $tagsRankedIds = [];
         foreach ($tagsRanked as $key => $value) {
             array_push($tagsRankedIds, $value->id);
+
+            // TODO: Covert to an efficient query, possibly merge with the previous tags ranked query
+            $value->name = DB::table('tags')->where('id', $value->id)->first()->name;
         }
+
+        // Assign ranked tags
+        $tags['ranked'] = $tagsRanked;
 
         // Get unranked tags
         $tagsUnranked = DB::table('tags')
@@ -57,7 +61,7 @@ class TagController extends BaseApiController
         // Assign unranked tags
         $tags['unranked'] = $tagsUnranked;
 
-        return TagResource::collection($tags);
+        return json_encode($tags);
     }
 
     /**
