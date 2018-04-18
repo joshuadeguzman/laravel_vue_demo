@@ -47727,8 +47727,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -47813,103 +47811,101 @@ var render = function() {
         }
       },
       [
-        _c("div", { staticClass: "card-body" }, [
-          _vm.success
-            ? _c("div", { staticClass: "alert alert-success" }, [
-                _c("strong", [_vm._v("Success!")]),
-                _vm._v(" Task has been successfully updated.\n            ")
-              ])
-            : _vm._e(),
+        _vm.success
+          ? _c("div", { staticClass: "alert alert-success" }, [
+              _c("strong", [_vm._v("Success!")]),
+              _vm._v(" Task has been successfully updated.\n        ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.failed
+          ? _c("div", { staticClass: "alert alert-danger" }, [
+              _c("strong", [_vm._v("Error!")]),
+              _vm._v(" Task was not updated.\n        ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.task.name,
+                expression: "task.name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "task-name",
+              type: "text",
+              placeholder: "task name",
+              required: "required"
+            },
+            domProps: { value: _vm.task.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.task, "name", $event.target.value)
+              }
+            }
+          }),
           _vm._v(" "),
-          _vm.failed
-            ? _c("div", { staticClass: "alert alert-danger" }, [
-                _c("strong", [_vm._v("Error!")]),
-                _vm._v(" Task was not updated.\n            ")
+          _vm.errors.name
+            ? _c("span", { staticClass: "help-block text-danger" }, [
+                _vm._v(" " + _vm._s(_vm.errors.name[0]) + " ")
               ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("input", {
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "textarea",
+            {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.task.name,
-                  expression: "task.name"
+                  value: _vm.task.description,
+                  expression: "task.description"
                 }
               ],
               staticClass: "form-control",
               attrs: {
-                id: "task-name",
+                id: "task-description",
                 type: "text",
-                placeholder: "task name",
-                required: "required"
+                placeholder: "task description",
+                rows: "10"
               },
-              domProps: { value: _vm.task.name },
+              domProps: { value: _vm.task.description },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.task, "name", $event.target.value)
+                  _vm.$set(_vm.task, "description", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _vm.errors.name
-              ? _c("span", { staticClass: "help-block text-danger" }, [
-                  _vm._v(" " + _vm._s(_vm.errors.name[0]) + " ")
-                ])
-              : _vm._e()
-          ]),
+            },
+            [
+              _vm._v(
+                "                    " +
+                  _vm._s(_vm.task.description) +
+                  "\n                "
+              )
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "textarea",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.task.description,
-                    expression: "task.description"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  id: "task-description",
-                  type: "text",
-                  placeholder: "task description",
-                  rows: "10"
-                },
-                domProps: { value: _vm.task.description },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.task, "description", $event.target.value)
-                  }
-                }
-              },
-              [
-                _vm._v(
-                  "                    " +
-                    _vm._s(_vm.task.description) +
-                    "\n                "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _vm.errors.description
-              ? _c("span", { staticClass: "help-block text-danger" }, [
-                  _vm._v(" " + _vm._s(_vm.errors.description[0]))
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _vm._m(0)
-        ])
+          _vm.errors.description
+            ? _c("span", { staticClass: "help-block text-danger" }, [
+                _vm._v(" " + _vm._s(_vm.errors.description[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
       ]
     )
   ])
@@ -47926,7 +47922,7 @@ var staticRenderFns = [
           staticClass: "btn btn-info btn-sm",
           attrs: { type: "submit", id: "save-task" }
         },
-        [_vm._v("\n                    Save\n                ")]
+        [_vm._v("\n                Save Task\n            ")]
       ),
       _vm._v(" "),
       _c(
@@ -47935,7 +47931,7 @@ var staticRenderFns = [
           staticClass: "btn btn-outline-danger btn-sm",
           attrs: { href: "/home", id: "cancel" }
         },
-        [_vm._v("\n                    Cancel\n                ")]
+        [_vm._v("\n                Cancel\n            ")]
       )
     ])
   }
@@ -48491,7 +48487,7 @@ var staticRenderFns = [
           staticClass: "btn btn-info btn-sm",
           attrs: { type: "submit", id: "save-task" }
         },
-        [_vm._v("\n                Save\n            ")]
+        [_vm._v("\n                Save Tags\n            ")]
       ),
       _vm._v(" "),
       _c(

@@ -1,25 +1,24 @@
 <template>
     <div>
         <form class="form-horizontal" method="patch" @submit.prevent="onSubmit">
-            <div class="card-body">
-                <div class="alert alert-success" v-if="success">
-                    <strong>Success!</strong> Task has been successfully updated.
-                </div>
+            <div class="alert alert-success" v-if="success">
+                <strong>Success!</strong> Task has been successfully updated.
+            </div>
 
-                <div class="alert alert-danger" v-if="failed">
-                    <strong>Error!</strong> Task was not updated.
-                </div>
-                <div class="form-group">
-                    <input id="task-name"
-                           v-model="task.name"
-                           type="text"
-                           placeholder="task name"
-                           required="required"
-                           class="form-control">
-                    <span v-if="errors.name" class="help-block text-danger"> {{ errors.name[0] }} </span>
-                </div>
+            <div class="alert alert-danger" v-if="failed">
+                <strong>Error!</strong> Task was not updated.
+            </div>
+            <div class="form-group">
+                <input id="task-name"
+                       v-model="task.name"
+                       type="text"
+                       placeholder="task name"
+                       required="required"
+                       class="form-control">
+                <span v-if="errors.name" class="help-block text-danger"> {{ errors.name[0] }} </span>
+            </div>
 
-                <div class="form-group">
+            <div class="form-group">
                   <textarea id="task-description"
                             v-model="task.description"
                             type="text"
@@ -29,21 +28,20 @@
 
                         {{ task.description }}
                     </textarea>
-                    <span v-if="errors.description" class="help-block text-danger"> {{ errors.description[0] }}</span>
-                </div>
+                <span v-if="errors.description" class="help-block text-danger"> {{ errors.description[0] }}</span>
+            </div>
 
-                <div class="form-group text-center">
-                    <button type="submit"
-                            class="btn btn-info btn-sm"
-                            id="save-task">
-                        Save
-                    </button>
-                    <a href="/home"
-                       class="btn btn-outline-danger btn-sm"
-                       id="cancel">
-                        Cancel
-                    </a>
-                </div>
+            <div class="form-group text-center">
+                <button type="submit"
+                        class="btn btn-info btn-sm"
+                        id="save-task">
+                    Save Task
+                </button>
+                <a href="/home"
+                   class="btn btn-outline-danger btn-sm"
+                   id="cancel">
+                    Cancel
+                </a>
             </div>
         </form>
     </div>

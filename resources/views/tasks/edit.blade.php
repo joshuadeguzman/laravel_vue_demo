@@ -13,7 +13,9 @@
                                 {{ session('status') }}
                             </div>
                         @endif
+                        <h5>Task Details</h5>
                         <task-edit :task-id="{{ $task->id }}"></task-edit>
+                        <h5>Task Tags</h5>
                         <tags :task-id="{{ $task->id }}"></tags>
                     </div>
                 </div>

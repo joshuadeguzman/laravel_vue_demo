@@ -23,7 +23,7 @@
                 <button type="submit"
                         class="btn btn-info btn-sm"
                         id="save-task">
-                    Save
+                    Save Tags
                 </button>
                 <a href="/home"
                    class="btn btn-outline-danger btn-sm"
@@ -59,7 +59,7 @@
         },
 
         methods: {
-            addTag (newTag) {
+            addTag(newTag) {
                 const tag = {
                     id: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000)),
                     name: newTag,
@@ -67,8 +67,8 @@
                 this.value.push(tag);
             },
 
-            fetchTaskTags(){
-                axios.get('/api/tasks/'+ this.taskId + '/tags')
+            fetchTaskTags() {
+                axios.get('/api/tasks/' + this.taskId + '/tags')
                     .then(({data}) => {
                         this.value = data.data;
                     });
@@ -82,7 +82,7 @@
             },
 
             onSubmit(e) {
-                axios.post('/api/tasks/'+ this.taskId + '/tags', this.value)
+                axios.post('/api/tasks/' + this.taskId + '/tags', this.value)
                     .then(({data}) => this.onRequestSuccess())
                     .catch(({response}) => this.onRequestFailed(response));
             },
