@@ -4,7 +4,8 @@ A demonstrable task list (to-do's) web-app using laravel and vuejs
 ## Demo
 [Live Preview](http://laravel-vue-demo.herokuapp.com/)
 
-### Run fresh copy configuration
+### Usage
+Generate application key
 ```
 php artisan key:generate
 ```
@@ -49,6 +50,7 @@ QUEUE_HOST=beanstalkd
 Serve via docker
 ```
 docker-compose exec workspace bash
+~/bash: php artisan serve
 ```
 
 ## Author
