@@ -4,7 +4,7 @@ A demonstrable task list (to-do's) web-app using laravel and vuejs
 ## Demo
 [Live Preview](http://laravel-vue-demo.herokuapp.com/)
 
-### Usage
+## Usage
 Generate application key
 ```
 php artisan key:generate
