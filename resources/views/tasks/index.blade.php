@@ -11,11 +11,13 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('task.create') }}"
-                           class="btn btn-primary btn-sm float-right"
-                           id="cancel">
-                            New Task
-                        </a>
+                        @if($tasks->count() > 0)
+                            <a href="{{ route('task.create') }}"
+                               class="btn btn-primary btn-sm float-right"
+                               id="cancel">
+                                New Task
+                            </a>
+                        @endif
                     </div>
                     <div class="card-body">
                         @if (session('status'))

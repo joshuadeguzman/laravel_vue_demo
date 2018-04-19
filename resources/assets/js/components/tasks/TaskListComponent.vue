@@ -42,6 +42,16 @@
                 <br/>
             </div>
         </div>
+        <div v-if="tasks.length == 0">
+            No tasks added yet,
+
+            <a href="/tasks/create"
+               id="cancel">
+                add
+            </a>
+
+            one now!
+        </div>
     </div>
 </template>
 
