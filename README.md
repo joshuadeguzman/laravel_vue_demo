@@ -4,6 +4,14 @@ A demonstrable task list (to-do's) web-app using laravel and vuejs
 ## Demo
 [Live Preview](http://laravel-vue-demo.herokuapp.com/)
 
+## Features
+- [x] RESTful API ready
+- [ ] RESTful Authentication
+- [x] Tagging
+- [X] Tagging suggestions based on the usage
+- [x] Minimal dependencies
+- [x] Docker ready
+
 ## Usage
 Generate application key
 ```
